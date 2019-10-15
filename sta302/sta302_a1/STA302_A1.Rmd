@@ -1,0 +1,86 @@
+---
+title: "STA302_A1"
+author: "Simon Shen"
+date: "September 15, 2019"
+output: pdf_document
+---
+
+Question 1
+
+Study Assessing the Relationship Between Height (cm) and Head Circumference (cm)
+
+The goal of this assignment is to study the relationship between an individual's height and head circumference. Intuitively, these variables are independent of each other, however, for argument's sake, in this specific study, the explanatory variable is the subject's height, and the response variable is the subject's head circumference.
+
+The intuition behind this choice was that the taller a human is, the larger their appendages and other limbs should be as well. In other words, the measurement of one's head circumference is dependant on one's height.
+
+The null hypothesis in this study is that there is no relationship between head circumference and height. The alternate hypothesis says that there is a relationship between height and head circumference.
+
+Question 2
+
+```{Plots for Q2}
+simon_height <- c(174.5,178,166,177,170,171,165,173,180,172)
+simon_head_circumference <- c(56.5, 56.0, 57.5, 58.5, 58.2, 58.9, 59.5, 60.0, 61, 59.6)
+plot(simon_height, simon_head_circumference, xlab = "Height (cm)", ylab = "Head Circumference (cm)", main = "Relationship Between Height and Head Circumference 7568")
+hist(simon_head_circumference, xlab = "Head Circumeference (cm)", ylab = "Count Frequency", main = "Histogram of Head Circumferences (cm) 7568")
+```
+
+The response variable shows a vague indication of being normally distributed. However, the shape relation is quite minimal.
+
+Question 3
+
+```{calculations}
+median(simon_head_circumference)
+median(simon_height)
+range(simon_head_circumference)
+```
+
+The Center of the data is the theoretical median point calculated using the two vectors created in question 2 (see appendix). In this case from the output we can see that the point is (172.5, 58.7). (See Appendix Question 3).
+
+The spread would just be the range of data from the response variable. In this case the largest and smallest values are 60.0 and 56.0 respectively, which implies the range is 5.0.
+
+Assuming there is a linear relationship between the variables, distinct unusual points that lie above or below the general trend include the points: (174.5, 56.5), (178, 56), (165, 59.5).
+
+Question 4
+
+(See Appendix Question 4 for R Code)
+From the linear regression model, we can see there is little correlation between the variables.
+
+```{linear regression}
+simon_lm <- lm(simon_head_circumference ~ simon_height)
+simon_lm
+plot(simon_height, simon_head_circumference, xlab = "Height (cm)", ylab = "Head Circumference (cm)", main = "Relationship Between Height and Head Circumference 7568") > abline(58.269694, 0.002087)
+```
+
+Question 5
+
+The regression parameters are not zero (see Appendix Question 5 for R Output). The intercept estimate of 58.2696 means that if a person were to have a height of 0 cm, their head circumference would be 58 cm, which realistically doesn't make sense.
+
+The second estimate for the slope parameter, 0.0021, can be interpreted to mean that for every unit of height that increases upon an individual, their head circumference is estimated to increase by 0.0021 cm. The Beta1 parameter suggests the relationship is independent, as the model has a slope near 0.
+
+The p-value is 0.9863. Since the p-value is far greater than our significance level of 0.05, we can say there is minimal relationship between the two variables, and we fail to reject the null hypothesis.
+
+```{getting values}
+summary(simon_lm)
+```
+
+Question 6
+
+The residuals values range widely. Thus, there are many points far away from the linear regression model, and other points that lie very close to it. We can draw the conclusion that a linear model is not the best fit for the data.
+
+```{resdiuals}
+simon_resid
+plot(simon_resid ~ simon_height, xlab = "Height (cm)", ylab = "Residuals", main = "Residuals 7568")
+abline(0,0)
+mean(simon_resid)
+var(simon_resid)
+```
+
+Question 7
+
+A possible lurking variable would be genetic background of each subject. As it's not specified in the study, participants could be subjected to genetic disorders or malformations that affect their height and/or head circumference.
+
+A limitation of the fit is that linear models are very sensitive to outliers. So the model itself may have suggested an independent relationship, however the weight of the outliers may be skewing the data.
+
+Question 8
+
+A possible study of two relationships could be the revenue earned by a specific product per year against the cost of advertising the product per year. The explanatory variable would be the cost spent on advertising, and the revenue would be response variable.
